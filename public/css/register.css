@@ -1,0 +1,192 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for form and image */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 65%;
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 293px;
+    margin-bottom: 35px;
+}
+
+/* Image Section */
+.image-section {
+    width: 45%; /* Adjusted width */
+    text-align: center;
+    order: 2;
+}
+
+.image-section img {
+    width: 85%; /* Image slightly smaller */
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Form Section */
+.form-section {
+    width: 50%;
+    order: 1;
+}
+
+.form-container {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Form Header */
+.form h2 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #333;
+}
+  
+.otp-input-group {
+    display: flex;
+    gap: 10px;
+}
+.otp-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
+}
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fafafa;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
+
+/* Form Button */
+.btn-primary {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Links */
+.member-text {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.member-text a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.member-text a:hover {
+    text-decoration: underline;
+}
+
+/* OTP Form Styling */
+.otp-container {
+    width: 100%;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.otp-form {
+    text-align: center;
+}
+
+.otp-form h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.otp-form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.otp-input-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.otp-input {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.otp-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
+
+.otp-form button {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.otp-form button:hover {
+    background-color: #2980b9;
+}
+
+/* Footer Styling */
+.hidden{
+    display: none;
+}

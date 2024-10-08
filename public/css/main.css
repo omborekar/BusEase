@@ -1,0 +1,125 @@
+/* Hero Section */
+#hero {
+    background-color: #e7f0f7;
+    padding: 50px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.hero-buttons {
+    margin-top: 20px;
+}
+
+.hero-buttons .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-signup {
+    background-color: #28a745;
+}
+
+.btn-login {
+    background-color: #007bff;
+}
+
+.btn-signup:hover, .btn-login:hover {
+    transform: translateY(-3px);
+}
+/* Popular Destinations */
+.popular-destinations {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.popular-destinations::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: -1;
+    filter: blur(10px);
+}
+
+.popular-destinations h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.popular-destinations p {
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.destination-grid {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Responsive layout */
+}
+
+.destination-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    max-width: 290px;
+    padding: 20px;
+    text-align: center;
+    margin: 15px; /* Added margin for spacing */
+    transition: transform 0.3s, box-shadow 0.3s; /* For hover effect */
+}
+
+.destination-card:hover {
+    transform: translateY(-8px); /* Raise effect on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Enhance shadow */
+}
+
+.destination-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s; /* Add smooth scaling effect */
+}
+
+.destination-card:hover img {
+    transform: scale(1.05); /* Scale image on hover */
+}
+
+.destination-card h3 {
+    font-size: 22px;
+    margin-top: 15px;
+    color: #333;
+    transition: color 0.3s; /* Change color on hover */
+}
+
+.destination-card p {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.destination-card:hover h3 {
+    color: #007bff; /* Change heading color on hover */
+}

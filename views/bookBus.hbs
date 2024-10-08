@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>BusEaze - Online Bus Reservation System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e1d08f83d4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bookBus.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <h2><a href="/main" style="text-decoration: none; color:antiquewhite">BusEase</a></h2>
+        </div>
+        <ul id="navbar-links" class="nav__menu">
+            <li><a href="/main"><i class="ixn fa-solid fa-house"></i>Home</a></li>
+            <li><a href="/index"><i class="ixn fa-solid fa-bus"></i>Find Bus</a></li>
+            <li><a href="/bookHis"><i class="ixn fas fa-history"></i>Booking History</a></li>
+            <li><a href="/logout"><i class="ixn fas fa-sign-out-alt"></i>Logout</a></li>
+            <li class="user-greeting jj"><i class="ixn fas fa-user"></i><p>Hello, <strong>{{username}}</strong>!</p></li>
+
+        
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Bus Booking - Passenger Information</h2>
+        <div class="bus-details">
+            <h3>Bus Details</h3>
+            <table>
+                <tr>
+                    <th>From</th>
+                    <td id="source">Delhi</td>
+                </tr>
+                <tr>
+                    <th>To</th>
+                    <td id="destination">Mumbai</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td id="date">2024-10-10</td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td id="time">10:00 AM</td>
+                </tr>
+                <tr>
+                    <th>Fare</th>
+                    <td>₹<span id="fare">1500</span></td>
+                </tr>
+            </table>
+        </div>
+        <h3>Enter Passenger Details</h3>
+        <form id="passenger-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" class="inp" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" class="inp" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="contact">Contact Number:</label>
+            <input type="text" id="contact" name="contact" class="inp" required>
+
+            <button type="button" class="submit-btn" id="add-passenger">Add Passenger</button>
+            <button type="submit" class="submit-btn" id="final-book">Book Now</button>
+        </form>
+        <table id="passenger-table" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 BusEase. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="/terms">Terms and Conditions</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+    <script>
+        function getQueryParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                source: urlParams.get('source'),
+                destination: urlParams.get('destination'),
+                date: urlParams.get('date'),
+                time: urlParams.get('time'),
+                fare: parseFloat(urlParams.get('fare')) 
+            };
+        }
+
+        const busInfo = getQueryParams();
+        document.getElementById('source').textContent = busInfo.source;
+        document.getElementById('destination').textContent = busInfo.destination;
+        document.getElementById('date').textContent = busInfo.date;
+        document.getElementById('time').textContent = busInfo.time;
+        document.getElementById('fare').textContent = busInfo.fare.toFixed(2);
+
+        let passengers = [];
+        const maxPassengers = 4;
+
+        document.getElementById('add-passenger').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const contact = document.getElementById('contact').value;
+
+            if (passengers.length >= maxPassengers) {
+                alert('You can only add up to 4 passengers.');
+                return;
+            }
+
+            if (!name || !age || !gender || !contact) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            passengers.push({ name, age, gender, contact });
+
+            const table = document.getElementById('passenger-table');
+            const tbody = table.querySelector('tbody');
+            const newRow = tbody.insertRow();
+
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${age}</td>
+                <td>${gender}</td>
+                <td>${contact}</td>
+            `;
+
+            table.style.display = 'table';
+            document.getElementById('passenger-form').reset();
+
+            const totalFare = busInfo.fare * passengers.length;
+            document.getElementById('fare').textContent = totalFare.toFixed(2);
+        });
+
+        document.getElementById('final-book').addEventListener('click', async function(event) {
+            event.preventDefault();
+
+            if (passengers.length === 0) {
+                alert('Please add at least one passenger.');
+                return;
+            }
+
+            const baseFare = busInfo.fare;
+            const totalFare = baseFare * passengers.length;
+
+            const busInfoWithTotalFare = {
+                source: busInfo.source,
+                destination: busInfo.destination,
+                date: busInfo.date,
+                time: busInfo.time,
+                fare: totalFare.toFixed(2) 
+            };
+
+            try {
+                const response = await fetch('/bookBus', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ passengers, busInfo: busInfoWithTotalFare })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    const queryParams = new URLSearchParams({
+                        source: busInfoWithTotalFare.source,
+                        destination: busInfoWithTotalFare.destination,
+                        date: busInfoWithTotalFare.date,
+                        time: busInfoWithTotalFare.time,
+                        fare: busInfoWithTotalFare.fare, 
+                        passengers: JSON.stringify(passengers) 
+                    });
+                    window.location.href = `/booked?${queryParams.toString()}`;
+                } else {
+                    alert(result.message || 'Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                alert('There was an error processing your request. Please try again.');
+            }
+        });
+    </script>
+
+</html>

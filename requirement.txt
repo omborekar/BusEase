@@ -1,0 +1,10 @@
+bcryptjs==2.4.3
+buffer-crc32==1.0.0
+cookie-parser==1.0.0
+cors==2.8.5
+express-handlebars==8.0.1
+hbs==4.2.0
+jsonwebtoken==9.0.2
+mongoose==8.7.0
+nodemon==3.1.7
+uid2==1.0.0

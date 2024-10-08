@@ -1,0 +1,280 @@
+/* General Body Styling */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f3f4f7, #eef2f5);
+  color: #333;
+  text-align: center;
+}
+
+/* Container for the content */
+.container {
+  margin-top: 50px; /* Add margin for spacing */
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo Styling */
+.navbar .logo h2 {
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Navigation Menu */
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/* Menu Items */
+.navbar ul li {
+  margin: 0 20px;
+  position: relative;
+}
+
+/* Menu Links */
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px; /* Added rounded corners for links */
+}
+
+/* Hover effect on links */
+.navbar ul li a:hover {
+  background-color: rgba(255, 221, 87, 0.3); /* Light hover background */
+  color: #ffdd57;
+}
+
+/* Dropdown content */
+.navbar ul li .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #007bff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  top: 40px;
+  right: 0;
+  min-width: 150px;
+  z-index: 1;
+}
+
+/* Dropdown items */
+.navbar ul li .dropdown-content a {
+  padding: 10px;
+  display: block;
+  color: white;
+  text-align: left;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for dropdown items */
+.navbar ul li .dropdown-content a:hover {
+  background-color: #0056b3;
+}
+
+/* Show dropdown on hover */
+.navbar ul li:hover .dropdown-content {
+  display: block;
+}
+
+/* Main content header */
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Search box styling */
+.search-box {
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-box div {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 10px;
+}
+
+.exchange {
+  max-width: 20px;
+}
+
+.search-box div:not(:last-child) {
+  border-right: 1px solid #ddd;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.search-box .icon {
+  font-size: 20px;
+  color: #888;
+}
+
+.search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive menu for small screens */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .navbar ul li {
+    margin: 10px 0;
+  }
+}
+
+/* Container for the forms */
+.form-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: absolute; /* Centering the form */
+  top: 50%; /* Position it vertically centered */
+  left: 50%; /* Position it horizontally centered */
+  transform: translate(-50%, -50%); /* Adjust to truly center */
+}
+
+/* Form styling */
+.form {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 15px; /* Added padding: 10px for top/bottom and 15px for left/right */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box; /* Ensures padding doesn't affect the overall width */
+}
+
+button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+p {
+  font-size: 14px;
+}
+
+p a {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* Sections Styling */
+section {
+  padding: 20px;
+  margin: 20px 0;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Hero Section Styling */
+.hero {
+  background: #e7f1ff;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0;
+}
+
+/* Button Styling */
+.btn {
+  background: #35424a;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 10px 0;
+  background: #35424a;
+  color: #ffffff;
+}

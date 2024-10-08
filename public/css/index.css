@@ -1,0 +1,171 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    background-color: #fff;
+    margin-top: 100px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    width: fit-content;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.search-box div {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.search-box input[type="text"],
+.search-box input[type="date"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border: 2px solid #1e3c72;
+    margin-left: 10px;
+    width: 200px;
+}
+
+.search-box .exchange {
+    padding: 10px;
+    background-color: #007bff;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #1e3c72;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Tagline */
+.tagline {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 20px 0;
+    color: #666;
+}
+
+/* Bus Image */
+.bus-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+
+/* Bus Found Result */
+.busFound {
+    /* display: none; */
+    background-color: #f1f9ff;
+    border: 1px solid #007bff;
+    padding: 20px;
+    border-radius: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.busTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.busTable th, .busTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.busTable th {
+    background-color: #f2f2f2;
+}
+
+.book-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.book-btn:hover {
+    background-color: #45a049;
+}
+
+.busFound h3 {
+    color: #007bff;
+    font-size: 1.5rem;
+}
+
+.busFound p {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+
+.book-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-btn:hover {
+    background-color: #218838;
+}

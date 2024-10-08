@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>BusEaze - Online Bus Reservation System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e1d08f83d4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/booked.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <h2><a href="/main" style="text-decoration: none; color:antiquewhite">BusEase</a></h2>
+        </div>
+        <ul id="navbar-links" class="nav__menu">
+            <li><a href="/main"><i class="ixn fa-solid fa-house"></i>Home</a></li>
+            <li><a href="/index"><i class="ixn fa-solid fa-bus"></i>Find Bus</a></li>
+            <li><a href="/bookHis"><i class="ixn fas fa-history"></i>Booking History</a></li>
+            <li><a href="/logout"><i class="ixn fas fa-sign-out-alt"></i>Logout</a></li>
+            <li class="user-greeting jj"><i class="ixn fas fa-user"></i><p>Hello, <strong>{{username}}</strong>!</p></li>
+
+        
+        </ul>
+    </nav>
+
+<div>
+    <!-- Booking Confirmation Section -->
+    <div>
+    <!-- Booking Confirmation Section -->
+    <div class="container">
+        <!-- Ticket Status -->
+        <div class="ticket-status">Booked</div>
+        
+        <!-- Large Checkmark Icon -->
+        <div class="confirmation-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <!-- Confirmation Message -->
+        <div class="confirmation-message">
+            <h2>Bus Booked Successfully!</h2>
+            <p>Your bus has been successfully booked. Please find your booking details below.</p>
+        </div>
+
+        <!-- Bus Details -->
+        <h2>Booking Confirmation</h2>
+        <div class="bus-details">
+            <h3>Bus Details</h3>
+            <table>
+                <tr>
+                    <th>From</th>
+                    <td id="source">Delhi</td>
+                </tr>
+                <tr>
+                    <th>To</th>
+                    <td id="destination">Mumbai</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td id="date">2024-10-10</td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td id="time">10:00 AM</td>
+                </tr>
+                <tr>
+                    <th>Fare</th>
+                    <td>₹<span id="fare">1500</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Passenger Details -->
+        <div class="passenger-details">
+            <h3>Passenger Details</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody id="passenger-list">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bill Details -->
+        <div class="bill">
+            <h3>Bill Summary</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Base Fare</td>
+                        <td>₹<span id="base-fare">1500</span></td>
+                    </tr>
+                    <tr>
+                        <td>GST (5%)</td>
+                        <td>₹<span id="gst">75</span></td>
+                    </tr>
+                    <tr>
+                        <td>Other Taxes</td>
+                        <td>₹<span id="taxes">30</span></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total Amount</td>
+                        <td>₹<span id="total-amount">1605</span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <button class="print-button" onclick="printBooking()">Print Booking</button>
+</div>
+
+
+<script>
+    // Get URL parameters for bus and passenger details
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Update bus details in the HTML
+    document.getElementById('source').innerText = urlParams.get('source');
+    document.getElementById('destination').innerText = urlParams.get('destination');
+    document.getElementById('date').innerText = urlParams.get('date');
+    document.getElementById('time').innerText = urlParams.get('time');
+    document.getElementById('fare').innerText = urlParams.get('fare');
+
+    // Parse passengers array from query parameters
+    const passengers = JSON.parse(urlParams.get('passengers'));
+    const passengerList = document.getElementById('passenger-list');
+
+    // Populate the passenger details table
+    passengers.forEach(passenger => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${passenger.name}</td>
+            <td>${passenger.age}</td>
+            <td>${passenger.gender}</td>
+            <td>${passenger.contact}</td>
+        `;
+        passengerList.appendChild(row);
+    });
+
+    // Calculate and display bill details
+    const baseFare = parseFloat(document.getElementById('fare').innerText);
+    const gst = (baseFare * 0.05).toFixed(2); // 5% GST
+    const otherTaxes = 30; // Other standard taxes
+    const totalAmount = (baseFare + parseFloat(gst) + otherTaxes).toFixed(2);
+
+    document.getElementById('gst').innerText = gst;
+    document.getElementById('taxes').innerText = otherTaxes;
+    document.getElementById('total-amount').innerText = totalAmount;
+
+    // Print function
+    function printBooking() {
+        const printContents = document.querySelector('.container').innerHTML;
+        const win = window.open('', '', 'height=600,width=800');
+        win.document.write('<html><head><title>Print Booking</title>');
+        win.document.write('<link rel="stylesheet" href="css/booked.css">'); // Include your CSS for printing
+        win.document.write('</head><body>');
+        win.document.write(printContents);
+        win.document.write('</body></html>');
+        win.document.close(); // Necessary for IE >= 10
+        win.print();
+    }
+</script>
+<footer class="footer">
+    <div class="footer-container">
+        <p>&copy; 2024 BusEase. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a href="/terms">Terms and Conditions</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

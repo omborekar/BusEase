@@ -1,0 +1,276 @@
+/* Navbar Styles */
+.navbar {
+    color: antiquewhite;
+    position: fixed; /* Fix the navbar at the top */
+    top: 0; /* Align it to the top of the viewport */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure the navbar is above all other content */
+    background: linear-gradient(90deg, #1e3c72, #2a69ac); /* Beautiful gradient */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px; /* Padding for better aesthetics */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+.navbar ul{
+    align-items: center;
+}
+.navbar::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: #ffb74d; /* A bright color to indicate active section */
+    transform: translateX(-50%);
+}
+
+.navbar .logo h2 {
+    margin: 0;
+    font-size: 28px; /* Larger logo text */
+    font-weight: bold; /* Bolder text */
+    transition: transform 0.3s; /* Animation on hover */
+}
+
+.navbar .logo h2:hover {
+    transform: scale(1.1); /* Scale up logo on hover */
+}
+
+/* Navigation Menu Styles */
+.nav__menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1; /* Allow menu to grow */
+    justify-content: flex-end; /* Align items to the right */
+    margin-right: 30px;
+    z-index: 100000000;
+}
+
+.nav__menu li {
+    margin: 0 20px; /* Adjusted margin for better spacing */
+    position: relative; /* For positioning pseudo-element */
+}
+
+.nav__menu a {
+    color: antiquewhite;
+    text-decoration: none;
+    padding: 8px 15px; /* Added padding for clickable area */
+    border-radius: 25px; /* Rounded pill shape for buttons */
+    transition: background 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Hover Effects */
+.nav__menu a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Light hover effect */
+    color: #ffb74d; /* Change text color on hover */
+}
+
+.nav__menu a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: #ffb74d; /* Bright accent color */
+    transition: width 0.3s ease, left 0.3s ease; /* Smooth effect for underline */
+}
+
+.nav__menu a:hover::after {
+    width: 100%; /* Expand underline on hover */
+    left: 0; /* Move to the left */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack navbar items on small screens */
+        padding: 10px; /* Reduced padding */
+    }
+
+    .nav__menu {
+        flex-direction: column; /* Stack menu items */
+        align-items: center; /* Center align items */
+    }
+
+    .nav__menu li {
+        margin: 10px 0; /* Margin for stacked items */
+    }
+}
+
+/* User Greeting Styles */
+.user-greeting {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background for contrast */
+    color: antiquewhite; /* White text color */
+    padding: 10px 15px; /* Padding for better spacing */
+    border-radius: 25px; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for effects */
+    display: flex; /* Flexbox for centering */
+    align-items: center; /* Center align text */
+}
+
+.user-greeting p {
+    margin: 0; /* Remove default margin */
+    font-size: 16px; /* Font size */
+}
+
+/* Hover Effect */
+.user-greeting:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Darker background on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.ixn{
+    margin-right: 10px;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #1e3c72;
+    position: static;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-top: 4px solid #ffb74d;
+    width: -webkit-fill-available;
+    bottom: 0;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the footer content */
+}
+
+.footer p {
+    margin: 0;
+    font-size: 16px;
+    color: antiquewhite; /* Slightly lighter text for subtle contrast */
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0; /* Margin for spacing */
+    display: flex;
+    gap: 20px; /* Space between links */
+}
+
+.footer-links li {
+    display: inline-block;
+}
+
+.footer-links a {
+    color: #ffb74d; /* Matching accent color */
+    text-decoration: none;
+    padding: 5px 10px; /* Padding for clickable area */
+    transition: color 0.3s, background-color 0.3s; /* Smooth hover effect */
+    border-radius: 20px; /* Rounded shape for the links */
+}
+
+.footer-links a:hover {
+    background-color: rgba(255, 183, 77, 0.2); /* Light background on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.footer .social-icons {
+    margin-top: 20px; /* Space between links and icons */
+}
+
+.footer .social-icons i {
+    color: #ffb74d; /* Use the accent color for social icons */
+    margin: 0 10px; /* Space between icons */
+    font-size: 20px;
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth hover and transform */
+}
+
+.footer .social-icons i:hover {
+    color: white; /* White color on hover */
+    transform: scale(1.2); /* Slightly enlarge icons on hover */
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        text-align: center; /* Center text */
+    }
+
+    .footer-links {
+        flex-direction: column; /* Stack footer links vertically */
+        gap: 10px; /* Reduce gap */
+    }
+}
+/* Dropdown Styles */
+.navbar .dropdown {
+    position: relative; /* Needed to position dropdown content */
+}
+
+.navbar .dropbtn {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px; /* Same padding as other navbar items */
+    border-radius: 25px; /* Pill-shaped button */
+    transition: background 0.3s, color 0.3s;
+}
+
+.navbar .dropbtn:hover {
+    background: rgba(255, 255, 255, 0.2); /* Light background hover */
+    color: #ffb74d; /* Accent color on hover */
+}
+
+/* Dropdown Content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1e3c72; /* Background matches navbar */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Drop shadow for depth */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 0; /* Padding between items */
+    min-width: 150px; /* Minimum width for the dropdown */
+    z-index: 1; /* Ensure it sits above other content */
+    top: 100%; /* Position just below the dropdown button */
+}
+
+.dropdown-content a {
+    color: white; /* White text for links */
+    padding: 10px 15px; /* Spacing inside each item */
+    text-decoration: none;
+    display: block; /* Block-level to fill dropdown width */
+    transition: background 0.3s ease; /* Smooth hover effect */
+}
+
+.dropdown-content a:hover {
+    background-color: #2a69ac; /* Darker background on hover */
+    color: #ffb74d; /* Accent color on hover */
+}
+
+/* Show the dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block; /* Display dropdown on hover */
+}
+
+/* Hover effect for dropdown caret */
+.navbar .fas.fa-caret-down {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .fas.fa-caret-down {
+    transform: rotate(180deg); /* Rotate caret on hover */
+}
+
+/* Responsive Design for Dropdown */
+@media (max-width: 768px) {
+    .dropdown-content {
+        position: static; /* Default position for mobile */
+        box-shadow: none; /* Remove shadow for mobile */
+        border-radius: 0;
+        min-width: 100%; /* Full width on mobile */
+    }
+}

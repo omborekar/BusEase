@@ -1,0 +1,166 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e6f7ff; /* Light blue background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Ticket Container */
+.container {
+    background-color: #ffffff; /* White background for the ticket */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 100px
+    ; /* Increased top margin */
+    text-align: center;
+    position: relative; /* For absolute positioning of the booked label */
+}
+
+/* Large Checkmark Icon */
+.confirmation-icon {
+    font-size: 75px; /* Large size for the checkmark */
+    color: #007bff; /* Blue color for success */
+    margin-bottom: 20px; /* Space between icon and message */
+}
+
+/* Ticket Status */
+.ticket-status {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff; /* Blue background for the booked label */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Confirmation Message */
+.confirmation-message {
+    margin-bottom: 20px;
+}
+
+.confirmation-message h2 {
+    color: #007bff; /* Blue color for confirmation message */
+}
+
+/* Ticket Title */
+h2 {
+    color: #333;
+    margin-top: 40px;
+}
+
+/* Bus Details and Ticket Tables */
+.bus-details, .passenger-details, .bill {
+    margin: 20px 0;
+    background-color: #f0f9ff; /* Very light blue background */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bus-details table, .passenger-details table, .bill table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table {
+    margin: 10px 0;
+}
+
+th {
+    background-color: #007bff; /* Header background color */
+    color: white; /* Header text color */
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+tfoot tr {
+    font-weight: bold;
+}
+
+/* Button Styles */
+.print-button {
+    background-color: #007bff; /* Button background color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 30px; /* Bottom margin as requested */
+    display: block; /* Centering the button */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.print-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+@media print {
+    /* Ensure the whole body has a white background and black text */
+    body {
+        background-color: white !important; /* Ensure the print background is white */
+        color: black !important; /* Ensure print text is black */
+    }
+
+    .print-button {
+        display: none !important; /* Hide the print button when printing */
+    }
+
+    /* Retain colors and background for printed ticket */
+    .container {
+        background-color: #ffffff !important; /* Ensure the container is white */
+        -webkit-print-color-adjust: exact; /* For WebKit-based browsers */
+        print-color-adjust: exact; /* Standard property for color adjustment */
+    }
+
+    .ticket-status {
+        background-color: #007bff !important; /* Background color for the booked label */
+        color: white !important; /* Text color for the booked label */
+    }
+
+    .confirmation-icon {
+        color: #007bff !important; /* Ensure checkmark color is retained */
+        font-size: 75px; /* Size for printing */
+    }
+
+    /* Header styles */
+    th {
+        background-color: #007bff !important; /* Header background color */
+        color: white !important; /* Header text color */
+    }
+
+    td {
+        color: black !important; /* Ensure text is black for print */
+    }
+
+    /* Print Page Settings */
+    @page {
+        size: auto; /* Auto size for the print page */
+        margin: 20mm; /* Define margins if needed */
+    }
+
+    /* Ensure styles apply to all tables */
+    table {
+        width: 100% !important; /* Full width for tables */
+        border-collapse: collapse !important; /* Collapse borders for a clean look */
+    }
+
+    th, td {
+        padding: 10px !important; /* Ensure padding is consistent */
+        border: 1px solid #ddd !important; /* Border for cells */
+    }
+}

@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4; /* Light background for the body */
+    color: #333; /* Darker text for improved readability */
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px; /* Increased padding for content */
+    background: white; /* White background for content area */
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Card shadow for depth */
+    transition: transform 0.3s; /* Animation for scaling */
+    margin-top: 100px;
+    margin-bottom: 40px;
+}
+
+.container:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+h2,h3 {
+    color: #1e3c72; /* Accent color for headings */
+    font-family: 'Georgia', serif; /* Stylish font for headings */
+    margin-bottom: 20px; /* Space below headings */
+}
+
+/* Form and Table Styles */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px; /* More space for clarity */
+    font-weight: bold; /* Bold labels */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 772.5px;
+    padding: 12px; /* Increased padding */
+    margin-bottom: 15px;
+    border: 2px solid #1e3c72; /* Border color matching the theme */
+    border-radius: 5px;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+select {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    margin-bottom: 15px;
+    border: 2px solid #1e3c72; /* Border color matching the theme */
+    border-radius: 5px;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #2a69ac; /* Darker border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(42, 105, 172, 0.5); /* Subtle shadow on focus */
+}
+
+.submit-btn {
+    background-color: #28a745; /* Bootstrap success color */
+    color: white;
+    border: none;
+    padding: 12px 25px; /* Increased padding */
+    border-radius: 25px; /* Rounded pill shape for buttons */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s; /* Smooth background and scale */
+}
+
+.submit-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd; /* Light border for cells */
+    padding: 12px; /* Increased padding inside cells */
+    text-align: left;
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+th {
+    background-color: #f2f2f2; /* Light gray background for headers */
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+tbody tr:hover {
+    background-color: #e9ecef; /* Light hover effect */
+}
+
+/* Responsive Media Query */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column; /* Stack navbar elements on small screens */
+    }
+
+    .nav__menu {
+        flex-direction: column; /* Stack menu items */
+    }
+
+    .nav__menu li {
+        margin: 10px 0; /* Margin for stacked items */
+    }
+
+    .container {
+        padding: 20px; /* Reduced padding for smaller screens */
+    }
+
+    .footer {
+        padding: 20px; /* Reduced padding for footer */
+    }
+}

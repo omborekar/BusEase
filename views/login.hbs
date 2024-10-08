@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>BusEaze - Online Bus Reservation System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e1d08f83d4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <h2><a href="/main" style="text-decoration: none; color:antiquewhite">BusEase</a></h2>
+    </div>
+    <ul id="navbar-links" class="nav__menu">
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Login/Signup <i class="fas fa-caret-down"></i></a>
+            <div class="dropdown-content">
+                <a href="/login">Login</a>
+                <a href="/register">Signup</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="image-section">
+        <img alt="Illustration of a person sitting on a chair with a laptop and a plant beside them" 
+            height="400" 
+            src="https://th.bing.com/th/id/OIP.Xq8VV32rpvF_mSyN0cDpIQAAAA?rs=1&pid=ImgDetMain" 
+            width="400"/>
+    </div>
+    <div class="form-section">
+        <div class="form-container">
+            <form class="form" id="login-form" method="POST">
+                <h2>Sign In</h2>
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <label for="login-name">Your Email</label>
+                    <input id="login-name" name="email" placeholder="Enter Your Email" required="" type="email"/>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <label for="login-password">Password</label>
+                    <input id="login-password" name="password" placeholder="Password" required="" type="password"/>
+                </div>
+                <button class="btn" type="submit">Log In</button><br><br>
+                <p>Don't have an account? <a class="link" href="/register">Create an account</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+    <script src="js/script.js"></script>
+    <script>
+        // script.js
+        document.getElementById("login-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the input values
+            const email = document.getElementById("login-name").value; // Use correct ID
+            const password = document.getElementById("login-password").value; // Use correct ID
+
+            try {
+                // Make a fetch request to the login API
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }), // Corrected variable names
+                });
+
+                // Check if the response status is 400
+                if (response.status === 400) {
+                    const data = await response.json(); // Parse the JSON response
+                    if (data.message === "Invalid Login details!") {
+                        alert(data.message); // Display the alert for invalid login
+                    }
+                } else if (response.redirected) {
+                    // Handle successful login and redirection
+                    window.location.href = response.url; // Redirect to the intended page
+                } else {
+                    // Handle other statuses as needed (e.g., 200 for success)
+                    const data = await response.json();
+                    console.log('Success:', data);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert("An error occurred. Please try again."); // Alert for any other errors
+            }
+        });
+    </script>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 BusEase. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="/terms">Terms and Conditions</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

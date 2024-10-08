@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>BusEaze - Online Bus Reservation System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/e1d08f83d4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <h2><a href="/main" style="text-decoration: none; color:antiquewhite">BusEase</a></h2>
+        </div>
+        <ul id="navbar-links" class="nav__menu">
+            <li><a href="/main"><i class="ixn fa-solid fa-house"></i>Home</a></li>
+            <li><a href="/index"><i class="ixn fa-solid fa-bus"></i>Find Bus</a></li>
+            <li><a href="/bookHis"><i class="ixn fas fa-history"></i>Booking History</a></li>
+            <li><a href="/logout"><i class="ixn fas fa-sign-out-alt"></i>Logout</a></li>
+            <li class="user-greeting jj"><i class="ixn fas fa-user"></i><p>Hello, <strong>{{username}}</strong>!</p></li>
+
+        
+        </ul>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <div class="header">India's No. 1 Online Bus Ticket Booking Site</div>
+        <div class="search-box">
+            <div>
+                <i class="fas fa-bus icon"></i>
+                <input placeholder="From" type="text" id="source" name="source" required />
+            </div>
+            <div class="exchange">
+                <i class="fas fa-exchange-alt icon"></i>
+            </div>
+            <div>
+                <i class="fas fa-bus icon"></i>
+                <input
+                    placeholder="To"
+                    type="text"
+                    id="destination"
+                    name="destination"
+                    required
+                />
+            </div>
+            <div>
+                <i class="fas fa-calendar-alt icon"></i>
+                <input type="date" id="date-picker" name="date" required />
+            </div>
+            <button type="button" class="search-button" onclick="searchBus()">SEARCH BUSES</button>
+        </div>
+
+        <div class="tagline">Apno ko, Sapno ko Kareeb Laaye.</div>
+        <div class="bus-image">
+            <img
+                alt="Illustration of a bus on a road with palm trees and a sunset in the background"
+                height="150"
+                src="https://pngfre.com/wp-content/uploads/bus-23-1-1024x589.png"
+                width="300"
+            />
+        </div>
+
+        <div id="results" class="busFound"></div>
+    </div>
+
+    <script>
+        // Sample bus data in dd-mm-yyyy format, with arrival time (HH:MM) added
+        const busData = [
+    // Delhi to Mumbai routes
+    ["Delhi", "Mumbai", "10-10-2024", 1500, 1400, "08:00"],
+    ["Delhi", "Mumbai", "10-10-2024", 1600, 1500, "10:30"],
+    ["Delhi", "Mumbai", "20-10-2024", 1550, 1450, "12:15"],
+    
+    // Delhi to Bangalore routes
+    ["Delhi", "Bangalore", "12-10-2024", 2500, 2200, "09:00"],
+    ["Delhi", "Bangalore", "19-10-2024", 2600, 2300, "13:45"],
+    
+    // Mumbai to Delhi routes
+    ["Mumbai", "Delhi", "10-10-2024", 1500, 1400, "07:30"],
+    ["Mumbai", "Delhi", "15-10-2024", 1450, 1350, "11:00"],
+    ["Mumbai", "Delhi", "20-10-2024", 1600, 1500, "14:30"],
+    
+    // Mumbai to Pune routes
+    ["Mumbai", "Pune", "11-10-2024", 600, 550, "09:30"],
+    ["Mumbai", "Pune", "16-10-2024", 650, 600, "15:00"],
+    ["Mumbai", "Pune", "22-10-2024", 700, 650, "18:30"],
+    
+    // Pune to Nashik routes
+    ["Pune", "Nashik", "12-10-2024", 400, 350, "08:45"],
+    ["Pune", "Nashik", "17-10-2024", 450, 400, "14:15"],
+    
+    // Mumbai to Nagpur routes
+    ["Mumbai", "Nagpur", "13-10-2024", 1200, 1150, "07:00"],
+    ["Mumbai", "Nagpur", "18-10-2024", 1250, 1200, "16:00"],
+    
+    // Bangalore to Chennai routes
+    ["Bangalore", "Chennai", "14-10-2024", 1200, 1100, "06:30"],
+    ["Bangalore", "Chennai", "21-10-2024", 1250, 1150, "20:00"],
+    
+    // Nashik to Sambhajinagar routes
+    ["Nashik", "Sambhajinagar", "15-10-2024", 350, 300, "09:15"],
+    ["Nashik", "Sambhajinagar", "20-10-2024", 400, 350, "16:45"],
+    
+    // Nagpur to Pune routes
+    ["Nagpur", "Pune", "16-10-2024", 1200, 1150, "08:00"],
+    ["Nagpur", "Pune", "19-10-2024", 1250, 1200, "15:30"],
+    
+    // Sambhajinagar to Mumbai routes
+    ["Sambhajinagar", "Mumbai", "17-10-2024", 800, 750, "10:00"],
+    ["Sambhajinagar", "Mumbai", "23-10-2024", 850, 800, "19:00"],
+    
+    // Kolhapur to Mumbai routes
+    ["Kolhapur", "Mumbai", "18-10-2024", 900, 850, "06:00"],
+    ["Kolhapur", "Mumbai", "24-10-2024", 950, 900, "21:00"],
+    
+    // Mumbai to Surat routes
+    ["Mumbai", "Surat", "19-10-2024", 500, 450, "08:30"],
+    ["Mumbai", "Surat", "25-10-2024", 550, 500, "17:00"],
+    
+    // Pune to Mumbai routes
+    ["Pune", "Mumbai", "11-10-2024", 600, 550, "05:30"],
+    ["Pune", "Mumbai", "20-10-2024", 700, 650, "11:15"],
+    
+    // Nashik to Mumbai routes
+    ["Nashik", "Mumbai", "12-10-2024", 500, 450, "08:00"],
+    ["Nashik", "Mumbai", "23-10-2024", 550, 500, "16:30"],
+    
+    // Nagpur to Mumbai routes
+    ["Nagpur", "Mumbai", "13-10-2024", 1200, 1150, "07:45"],
+    ["Nagpur", "Mumbai", "22-10-2024", 1300, 1250, "14:15"],
+    
+    // Sambhajinagar to Nashik routes
+    ["Sambhajinagar", "Nashik", "14-10-2024", 400, 350, "09:00"],
+    ["Sambhajinagar", "Nashik", "21-10-2024", 450, 400, "15:30"],
+    
+    // Pune to Kolhapur routes
+    ["Pune", "Kolhapur", "15-10-2024", 700, 650, "10:15"],
+    ["Pune", "Kolhapur", "22-10-2024", 750, 700, "19:45"],
+    
+    // Nashik to Pune routes
+    ["Nashik", "Pune", "16-10-2024", 400, 350, "08:00"],
+    ["Nashik", "Pune", "24-10-2024", 450, 400, "16:15"],
+    
+    // Mumbai to Indore routes
+    ["Mumbai", "Indore", "17-10-2024", 1300, 1250, "07:00"],
+    ["Mumbai", "Indore", "25-10-2024", 1350, 1300, "14:00"],
+    
+    // Pune to Indore routes
+    ["Pune", "Indore", "18-10-2024", 1400, 1350, "10:00"],
+    ["Pune", "Indore", "26-10-2024", 1450, 1400, "16:30"],
+    
+    // Nagpur to Nashik routes
+    ["Nagpur", "Nashik", "19-10-2024", 1200, 1150, "08:15"],
+    ["Nagpur", "Nashik", "27-10-2024", 1250, 1200, "14:45"],
+    
+    // Surat to Mumbai routes
+    ["Surat", "Mumbai", "20-10-2024", 500, 450, "07:30"],
+    ["Surat", "Mumbai", "28-10-2024", 550, 500, "18:00"],
+    
+    // Sambhajinagar to Pune routes
+    ["Sambhajinagar", "Pune", "21-10-2024", 600, 550, "08:30"],
+    ["Sambhajinagar", "Pune", "29-10-2024", 650, 600, "17:30"],
+    
+    // Kolhapur to Pune routes
+    ["Kolhapur", "Pune", "22-10-2024", 700, 650, "10:30"],
+    ["Kolhapur", "Pune", "30-10-2024", 750, 700, "19:00"],
+    
+    // Nashik to Sambhajinagar routes
+    ["Nashik", "Sambhajinagar", "23-10-2024", 350, 300, "08:00"],
+    ["Nashik", "Sambhajinagar", "31-10-2024", 400, 350, "16:45"],
+    
+    // Nagpur to Indore routes
+    ["Nagpur", "Indore", "24-10-2024", 1300, 1250, "07:00"],
+    ["Nagpur", "Indore", "01-11-2024", 1350, 1300, "14:00"],
+    
+    // Mumbai to Shirdi routes
+    ["Mumbai", "Shirdi", "25-10-2024", 800, 750, "06:00"],
+    ["Mumbai", "Shirdi", "02-11-2024", 850, 800, "19:00"],
+    
+    // Pune to Shirdi routes
+    ["Pune", "Shirdi", "26-10-2024", 700, 650, "10:00"],
+    ["Pune", "Shirdi", "03-11-2024", 750, 700, "16:30"],
+    
+    // Kolhapur to Nashik routes
+    ["Kolhapur", "Nashik", "27-10-2024", 800, 750, "08:15"],
+    ["Kolhapur", "Nashik", "04-11-2024", 850, 800, "18:45"],
+    
+    // Mumbai to Nashik routes
+    ["Mumbai", "Nashik", "28-10-2024", 500, 450, "06:45"],
+    ["Mumbai", "Nashik", "05-11-2024", 550, 500, "16:15"],
+    
+    // Pune to Nashik routes
+    ["Pune", "Nashik", "29-10-2024", 450, 400, "08:30"],
+    ["Pune", "Nashik", "06-11-2024", 500, 450, "15:30"],
+    
+    // Nashik to Sambhajinagar routes
+    ["Nashik", "Sambhajinagar", "30-10-2024", 350, 300, "09:15"],
+    ["Nashik", "Sambhajinagar", "07-11-2024", 400, 350, "14:45"],
+    
+    // Mumbai to Ratnagiri routes
+    ["Mumbai", "Ratnagiri", "31-10-2024", 900, 850, "07:30"],
+    ["Mumbai", "Ratnagiri", "08-11-2024", 950, 900, "17:30"],
+    
+    // Pune to Ratnagiri routes
+    ["Pune", "Ratnagiri", "01-11-2024", 800, 750, "09:00"],
+    ["Pune", "Ratnagiri", "09-11-2024", 850, 800, "18:00"],
+    
+    // Nagpur to Nashik routes
+    ["Nagpur", "Nashik", "02-11-2024", 1200, 1150, "08:30"],
+    ["Nagpur", "Nashik", "10-11-2024", 1250, 1200, "15:00"],
+    
+    // Sambhajinagar to Shirdi routes
+    ["Sambhajinagar", "Shirdi", "03-11-2024", 600, 550, "10:00"],
+    ["Sambhajinagar", "Shirdi", "11-11-2024", 650, 600, "16:30"],
+    
+    // Kolhapur to Sambhajinagar routes
+    ["Kolhapur", "Sambhajinagar", "04-11-2024", 700, 650, "08:00"],
+    ["Kolhapur", "Sambhajinagar", "12-11-2024", 750, 700, "15:15"],
+    
+    // Mumbai to Ahilyadevi Nagar routes
+    ["Mumbai", "Ahilyadevi Nagar", "05-11-2024", 700, 650, "06:30"],
+    ["Mumbai", "Ahilyadevi Nagar", "13-11-2024", 750, 700, "16:00"]
+];
+
+
+        // Function to search for buses based on the input
+        function searchBus() {
+    const from = document.getElementById('source').value.trim();
+    const to = document.getElementById('destination').value.trim();
+    const date = document.getElementById('date-picker').value;
+
+    // Convert date-picker value from yyyy-mm-dd to dd-mm-yyyy
+    const [year, month, day] = date.split("-");
+    const formattedDate = `${day}-${month}-${year}`;
+
+    // Get results div
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = ''; // Clear previous results
+
+    // Create a table for displaying results
+    const table = document.createElement('table');
+    table.className = 'busTable';
+
+    // Create table header
+    const headerRow = document.createElement('tr');
+    const headers = ['From', 'To', 'Date', 'Arrival Time', 'Distance (km)', 'Fare (₹)', 'Action'];
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+
+    // Loop through the bus data to find matches
+    let busFound = false;
+    for (let i = 0; i < busData.length; i++) {
+        if (busData[i][0] === from && busData[i][1] === to && busData[i][2] === formattedDate) {
+            busFound = true;
+            
+            // Create a row for the found bus
+            const row = document.createElement('tr');
+
+            // Create and append data cells
+            const fromCell = document.createElement('td');
+            fromCell.textContent = busData[i][0];
+            row.appendChild(fromCell);
+
+            const toCell = document.createElement('td');
+            toCell.textContent = busData[i][1];
+            row.appendChild(toCell);
+
+            const dateCell = document.createElement('td');
+            dateCell.textContent = busData[i][2];
+            row.appendChild(dateCell);
+
+            const arrivalTimeCell = document.createElement('td');
+            arrivalTimeCell.textContent = busData[i][5];
+            row.appendChild(arrivalTimeCell);
+
+            const distanceCell = document.createElement('td');
+            distanceCell.textContent = busData[i][4];
+            row.appendChild(distanceCell);
+
+            const fareCell = document.createElement('td');
+            fareCell.textContent = busData[i][3];
+            row.appendChild(fareCell);
+
+            const actionCell = document.createElement('td');
+            const bookButton = document.createElement('button');
+            bookButton.className = 'book-btn';
+            bookButton.textContent = 'Book';
+            bookButton.onclick = () => bookTicket(busData[i][0], busData[i][1], busData[i][2], busData[i][3], busData[i][5]);
+            actionCell.appendChild(bookButton);
+            row.appendChild(actionCell);
+
+            // Append the row to the table
+            table.appendChild(row);
+        }
+    }
+
+    // Append the table to the results div
+    resultsDiv.appendChild(table);
+
+    // If no buses found, display a message
+    if (!busFound) {
+        resultsDiv.innerHTML = '<p>No buses found for the selected route.</p>';
+    }
+}
+
+
+        // Booking function (for demonstration)
+        function bookTicket(source, destination, date, fare, time) {
+            alert(`Booking confirmed!\nFrom: ${source}\nTo: ${destination}\nDate: ${date}\nTime: ${time}\nFare: ₹${fare}`);
+        }
+        
+
+    function bookTicket(source, destination, date, fare, time) {
+        // Redirect to the new page and pass bus info in the query string
+        const url = `bookBus?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&fare=${encodeURIComponent(fare)}`;
+        window.location.href = url;
+    }
+</script>
+<footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 BusEase. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="/terms">Terms and Conditions</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>
